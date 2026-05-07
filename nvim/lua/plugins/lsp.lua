@@ -39,12 +39,17 @@ return {
           },
           settings = {
             gopls = {
-              directoryFilters = {
+              -- Bazel creates a `bazel-<workspace>` symlink at the workspace
+              -- root that points back into the source tree; gopls must skip
+              -- it or it double-traverses. Set BAZEL_GO_WORKSPACE to your
+              -- workspace dir name (e.g. in ~/.zshrc) to add that filter.
+              directoryFilters = vim.tbl_filter(function(v) return v ~= nil end, {
                 "-bazel-bin",
                 "-bazel-out",
                 "-bazel-testlogs",
                 "-.ijwb",
-              },
+                vim.env.BAZEL_GO_WORKSPACE and ("-bazel-" .. vim.env.BAZEL_GO_WORKSPACE) or nil,
+              }),
             },
           },
         },

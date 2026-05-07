@@ -1,17 +1,10 @@
 -- Options (LazyVim sets sensible defaults; add overrides here)
 
--- Route gopls through a Bazel-aware go/packages driver when inside a Bazel workspace.
--- Shell config has this disabled; we inject it into Neovim's env so gopls
--- inherits it regardless of how Neovim was launched.
-local function in_bazel_workspace()
-  for _, marker in ipairs({ "WORKSPACE", "WORKSPACE.bazel", "MODULE.bazel" }) do
-    if vim.fn.findfile(marker, ".;") ~= "" then return true end
-  end
-  return false
-end
-
+-- Route gopls through a Bazel-aware go/packages driver if one is installed.
+-- The driver script itself is responsible for falling back to plain `go list`
+-- when not inside a Bazel workspace.
 local driver = vim.fn.expand("~/bin/gopackagesdriver")
-if vim.fn.executable(driver) == 1 and in_bazel_workspace() then
+if vim.fn.executable(driver) == 1 then
   vim.env.GOPACKAGESDRIVER = driver
 end
 
