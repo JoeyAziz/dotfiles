@@ -1,0 +1,197 @@
+{
+  "Ant Design Modal with Trigger Button": {
+    "prefix": "antModal",
+    "body": [
+      "import { PlusOutlined } from \"@ant-design/icons\";",
+      "import { Button, Form, Modal } from \"antd\";",
+      "import React from \"react\";",
+      "import { useToggle } from \"react-use\";",
+      "",
+      "export const Create${1:Entity}Modal: React.FC = () => {",
+      "  const [open, toggle] = useToggle(false);",
+      "  const [form] = Form.useForm();",
+      "",
+      "  return (",
+      "    <>",
+      "      <Button",
+      "        type=\"primary\"",
+      "        onClick={toggle}",
+      "        icon={<PlusOutlined />}",
+      "        children=\"${2:Create ${1:Entity}}\"",
+      "      />",
+      "      <Modal",
+      "        destroyOnClose",
+      "        title=\"Create ${1:Entity}\"",
+      "        okText=\"Create\"",
+      "        open={open}",
+      "        width=\"70%\"",
+      "        bodyStyle={{ maxHeight: \"calc(100svh - 12rem)\", overflowY: \"hidden\" }}",
+      "        onCancel={() => {",
+      "          form.resetFields();",
+      "          toggle();",
+      "        }}",
+      "        // cancelButtonProps={{ disabled: isLoading }}",
+      "        okButtonProps={{",
+      "          htmlType: \"submit\",",
+      "          form: \"${3:form-name}\",",
+      "          // loading: isLoading,",
+      "        }}",
+      "      >",
+      "        $0",
+      "      </Modal>",
+      "    </>",
+      "  );",
+      "};"
+    ],
+    "description": "Ant Design Modal scaffold with a primary trigger button, useToggle state, and wired form submission"
+  },
+
+  "Ant Design Table Page": {
+    "prefix": "antTablePage",
+    "body": [
+      "import { Table } from \"antd\";",
+      "import { ColumnsType } from \"antd/es/table\";",
+      "import React from \"react\";",
+      "",
+      "const ${1:Entity}Table = () => {",
+      "  const data: ${2:RecordType}[] = [];",
+      "",
+      "  const columns: ColumnsType<${2:RecordType}> = [",
+      "    {",
+      "      title: () => <b>${3:Column}</b>,",
+      "      dataIndex: \"${4:field}\",",
+      "      key: \"${4:field}\",",
+      "    },$0",
+      "  ];",
+      "",
+      "  return (",
+      "    <Table",
+      "      rowKey=\"id\"",
+      "      className=\"w-full\"",
+      "      dataSource={data}",
+      "      columns={columns}",
+      "      pagination={false}",
+      "      scroll={{ y: \"calc(100vh - 23em)\" }}",
+      "    />",
+      "  );",
+      "};",
+      "",
+      "export default ${1:Entity}Table;"
+    ],
+    "description": "Full Ant Design Table page component with typed ColumnsType, pagination disabled, and vertical scroll"
+  },
+
+  "Ant Design Table (inline)": {
+    "prefix": "antTable",
+    "body": [
+      "<Table",
+      "  rowKey=\"id\"",
+      "  className=\"w-full\"",
+      "  dataSource={data}",
+      "  columns={columns}",
+      "  pagination={false}",
+      "  scroll={{ y: \"calc(100vh - 23em)\" }}",
+      "/>$0"
+    ],
+    "description": "Inline Ant Design Table JSX with standard props — use when data and columns are already defined"
+  },
+
+  "Ant Design Form": {
+    "prefix": "antForm",
+    "body": [
+      "<Form",
+      "  labelWrap",
+      "  colon={false}",
+      "  autoComplete=\"off\"",
+      "  name=\"${1:form-name}\"",
+      "  layout=\"horizontal\"",
+      "  className=\"w-full\"",
+      "  labelCol={{ span: 5 }}",
+      "  validateMessages={{",
+      "    required: \"\\${label} is required\",",
+      "  }}",
+      ">",
+      "  $0",
+      "</Form>"
+    ],
+    "description": "Ant Design Form with horizontal layout, labelCol, and default required validation message"
+  },
+
+  "Ant Design Form.Item": {
+    "prefix": "antFormItem",
+    "body": [
+      "<Form.Item",
+      "  name=\"${1:fieldName}\"",
+      "  label=\"${2:Label}\"",
+      "  rules={[{ required: ${3:true} }]}",
+      ">",
+      "  <${4:Input} className=\"w-full\" />",
+      "</Form.Item>"
+    ],
+    "description": "Ant Design Form.Item with name, label, and required validation rule"
+  },
+
+  "Ant Design Localized Form.Item": {
+    "prefix": "antLocalItem",
+    "body": [
+      "<Form.Item",
+      "  label=\"English ${1:Field}\"",
+      "  name={[\"${2:fieldName}\", \"en\"]}",
+      "  rules={[{ required: true }]}",
+      ">",
+      "  <Input />",
+      "</Form.Item>",
+      "",
+      "<Form.Item",
+      "  label=\"Arabic ${1:Field}\"",
+      "  name={[\"${2:fieldName}\", \"ar\"]}",
+      "  rules={[{ required: true }]}",
+      ">",
+      "  <Input dir=\"rtl\" />",
+      "</Form.Item>"
+    ],
+    "description": "Bilingual Form.Item pair — English + Arabic (RTL) inputs sharing the same field name key"
+  },
+
+  "Extract Route Param": {
+    "prefix": "antRouteKey",
+    "body": [
+      "const { ${1:id} } = useParams<{ ${1:id}: string }>();"
+    ],
+    "description": "Extract a typed string param from the current route using useParams"
+  },
+
+  "React Arrow Function Component (export default)": {
+    "prefix": "rafce",
+    "body": [
+      "import React from \"react\";",
+      "",
+      "const ${1:${TM_FILENAME_BASE}}: React.FC = () => {",
+      "  return (",
+      "    <div>$0</div>",
+      "  );",
+      "};",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}};"
+    ],
+    "description": "React arrow function component with export default, name inferred from filename"
+  },
+
+  "React Arrow Function Component with Props": {
+    "prefix": "rafc",
+    "body": [
+      "import React from \"react\";",
+      "",
+      "interface ${TM_FILENAME_BASE}Props {",
+      "  $1",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE}: React.FC<${TM_FILENAME_BASE}Props> = ({ $2 }) => {",
+      "  return (",
+      "    <div>$0</div>",
+      "  );",
+      "};"
+    ],
+    "description": "React arrow function component with a typed Props interface, name inferred from filename"
+  }
+}
