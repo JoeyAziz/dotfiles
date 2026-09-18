@@ -14,10 +14,19 @@ return {
         html            = { "prettier" },
         markdown        = { "prettier" },
         yaml            = { "prettier" },
+        sql             = { "sql_formatter" },
+        mysql           = { "sql_formatter" },
       })
 
       -- Go: goimports first (organises imports), then gofmt
       opts.formatters_by_ft.go = { "goimports", "gofmt" }
+
+      -- SQL: match telda migrations style (mysql, 4-space, upper keywords)
+      opts.formatters = vim.tbl_deep_extend("force", opts.formatters or {}, {
+        sql_formatter = {
+          prepend_args = { "--config", vim.fn.stdpath("config") .. "/sql-formatter.json" },
+        },
+      })
 
       opts.timeout_ms = 3000
     end,
@@ -31,6 +40,7 @@ return {
       vim.list_extend(opts.ensure_installed, {
         "prettier",
         "goimports",
+        "sql-formatter",
       })
     end,
   },

@@ -21,6 +21,7 @@ return {
 				"ssh_config",
 				"proto", -- Protocol Buffers
 			})
+			opts.indent = { enable = false }
 		end,
 	},
 }

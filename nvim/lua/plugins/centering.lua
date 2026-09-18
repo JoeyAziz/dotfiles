@@ -9,7 +9,6 @@ return {
     opts = {
       width = 120,
       autocmds = {
-        enableOnVimEnter = true,
         skipEnteringNoNeckPainBuffer = true,
         reloadOnColorSchemeChange = true,
       },

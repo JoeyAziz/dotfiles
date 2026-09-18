@@ -2,6 +2,11 @@
 local map = vim.keymap.set
 local wk = require("which-key")
 
+-- Don't send `c`/`C`/`cc` (change) into the system clipboard
+for _, lhs in ipairs({ "c", "C", "cc" }) do
+	map({ "n", "x" }, lhs, '"_' .. lhs, { desc = "Change without yanking" })
+end
+
 -- Bazel
 local bazel = require("util.bazel")
 

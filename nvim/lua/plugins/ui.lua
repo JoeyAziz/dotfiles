@@ -11,6 +11,8 @@ return {
       -- Disable indent | lines and scope highlight
       indent = { enabled = false },
       scope = { enabled = false },
+      -- No winbar ("1: term_title" path bar) on split terminals
+      terminal = { win = { wo = { winbar = "" } } },
     },
   },
 }

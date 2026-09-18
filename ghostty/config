@@ -1,0 +1,23 @@
+# Font
+font-family = JetBrains Mono
+font-style = Medium
+font-style-bold = Bold
+font-style-italic = Medium Italic
+font-style-bold-italic = Bold Italic
+font-size = 13
+font-thicken = true
+font-thicken-strength = 100
+adjust-cell-height = 15%
+
+# Theme
+theme = Kanagawa Wave
+
+# Make Option key send Alt/Meta for Neovim keybindings
+macos-option-as-alt = true
+
+window-padding-x = 8
+window-padding-y = 4
+
+# Enable PGUP and PGDOWN
+keybind = shift+page_up = scroll_page_up
+keybind = shift+page_down = scroll_page_down
