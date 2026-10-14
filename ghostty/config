@@ -11,13 +11,13 @@ adjust-cell-height = 15%
 
 # Theme
 theme = Kanagawa Wave
-
-# Make Option key send Alt/Meta for Neovim keybindings
-macos-option-as-alt = true
+#theme = desert
 
 window-padding-x = 8
 window-padding-y = 4
 
-# Enable PGUP and PGDOWN
-keybind = shift+page_up = scroll_page_up
-keybind = shift+page_down = scroll_page_down
+
+# Mac styles
+macos-icon-frame = beige
+# Make Option key send Alt/Meta for Neovim keybindings
+macos-option-as-alt = true

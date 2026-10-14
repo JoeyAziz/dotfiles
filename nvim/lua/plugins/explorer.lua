@@ -8,7 +8,7 @@ return {
 					explorer = {
 						layout = {
 							preset = "vertical",
-							preview = true,
+							preview = false,
 							layout = { width = 0.4, height = 0.9 },
 						},
 						auto_close = true,
