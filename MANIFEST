@@ -1,0 +1,6 @@
+# source|operation|destination (relative to $HOME)
+emacs/init.el|symlink|.config/emacs/init.el
+emacs/emacs.rc|symlink|.config/emacs/emacs.rc
+nvim|symlink|.config/nvim
+tmux/tmux.conf|symlink|.tmux.conf
+ghostty/config|symlink|.config/ghostty/config
