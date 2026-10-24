@@ -1,9 +1,7 @@
-;;; appearance-rc.el --- fonts, UI, and theme (alabaster + C-c t toggle)  -*- lexical-binding: t; -*-
-;;; Commentary:
-;; All visual setup: fonts, chrome, and the dark/light theme toggle.
+;;; appearance-rc.el --- fonts, UI, and theme -*- lexical-binding: t; -*-
 
 ;;; FONTS & UI
-(set-face-attribute 'default nil :height 190)            ; 190 = 19pt
+(set-face-attribute 'default nil :family "JetBrains Mono" :height 190) ; 190 = 19pt
 (set-face-attribute 'mode-line nil :height 190)
 (set-face-attribute 'mode-line-inactive nil :height 190)
 
@@ -18,17 +16,21 @@
 (show-paren-mode 1)                       ; match parenthesis
 (ido-mode 1)                              ; show files in C-x C-f
 
-;;; THEME (alabaster dark-mono + C-c t toggle)
+;;; THEME (gruber-darker dark + alabaster light + C-c t toggle)
+(use-package gruber-darker-theme
+  :ensure t
+  :config
+  (mapc #'disable-theme custom-enabled-themes) ; wipe any stacked themes
+  (load-theme 'gruber-darker t))
+
 (use-package alabaster-themes
   :config
   (setq alabaster-themes-no-bold t)
   (setq alabaster-themes-dark-mono-palette-overrides
         '((bg-region "#CD974B")   ; amber selection, same as cursor
-          (fg-region "#0E1415"))) ; near-black text on amber
-  (mapc #'disable-theme custom-enabled-themes) ; wipe any stacked themes
-  (load-theme 'alabaster-themes-dark-mono t))
+          (fg-region "#0E1415")))) ; near-black text on amber
 
-(defvar ja/dark-theme  'alabaster-themes-dark-mono "Coding theme.")
+(defvar ja/dark-theme  'gruber-darker "Coding theme.")
 (defvar ja/light-theme 'alabaster-themes-light    "Writing theme.")
 (defvar ja/current-theme ja/dark-theme "Currently active theme.")
 

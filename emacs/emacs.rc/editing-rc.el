@@ -14,3 +14,21 @@
 (use-package expand-region
   :bind (("C-=" . er/expand-region)       ; grow selection: word -> "string" -> (sexp) -> ...
          ("C--" . er/contract-region)))   ; shrink back
+
+(use-package move-text
+  :ensure t
+  :config
+  (move-text-default-bindings))  ; M-<up> / M-<down>
+
+(defun ja/duplicate-line ()
+  "Duplicate current line"
+  (interactive)
+  (let ((column (- (point) (point-at-bol)))
+        (line (let ((s (thing-at-point 'line t)))
+                (if s (string-remove-suffix "\n" s) ""))))
+    (move-end-of-line 1)
+    (newline)
+    (insert line)
+    (move-beginning-of-line 1)
+    (forward-char column)))
+(global-set-key (kbd "C-,") 'ja/duplicate-line)
