@@ -5,16 +5,17 @@
 (set-face-attribute 'mode-line nil :height 190)
 (set-face-attribute 'mode-line-inactive nil :height 190)
 
-(tool-bar-mode -1)                        ; hide the graphical toolbar
-(scroll-bar-mode -1)                      ; hide the scrollbars
-(global-eldoc-mode -1)                    ; no auto type-info in the bottom line
-(column-number-mode 1)                    ; show column in mode line
-(global-display-line-numbers-mode 1)      ; line numbers everywhere
-(global-auto-revert-mode 1)               ; reload files changed outside Emacs
-(recentf-mode 1)                          ; recent files
-(global-set-key (kbd "M-g i") #'imenu)    ; jump to function/section
-(show-paren-mode 1)                       ; match parenthesis
-(ido-mode 1)                              ; show files in C-x C-f
+(tool-bar-mode -1)                          ; hide the graphical toolbar
+(scroll-bar-mode -1)                        ; hide the scrollbars
+(global-eldoc-mode -1)                      ; no auto type-info in the bottom line
+(column-number-mode 1)                      ; show column in mode line
+(global-display-line-numbers-mode 1)        ; line numbers everywhere
+(setq display-line-numbers-type 'relative)  ; Set the line number format to relative
+(global-auto-revert-mode 1)                 ; reload files changed outside Emacs
+(recentf-mode 1)                            ; recent files
+(global-set-key (kbd "M-g i") #'imenu)      ; jump to function/section
+(show-paren-mode 1)                         ; match parenthesis
+(ido-mode 1)                                ; show files in C-x C-f
 
 ;;; THEME (gruber-darker dark + alabaster light + C-c t toggle)
 (use-package gruber-darker-theme

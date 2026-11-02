@@ -32,3 +32,6 @@
                   "hooks-rc"))
   (load (expand-file-name (concat "emacs.rc/" module ".el")
                           user-emacs-directory)))
+
+(setq use-short-answers t)
+(setq confirm-kill-emacs 'yes-or-no-p)
