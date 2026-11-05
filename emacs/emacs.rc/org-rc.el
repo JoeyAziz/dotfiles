@@ -148,15 +148,33 @@
 (defconst ja/org-active-states "IN-PROGRESS\\|WAITING\\|QA\\|NOT-ON-PROD")
 
 ;; The calendar timeline is an EVENTS view: journals on their day, project
-;; headlines on the day they last progressed.  Plain tasks (standalone and
-;; project sub-tasks) don't belong there — they live in the state blocks.
-;; Explicit SCHEDULED/DEADLINE dates still show: you asked for that day.
+;; headlines on the day they last progressed, and started standalone tasks
+;; on their UPDATED-stamp day.  TODO-state tasks and project sub-tasks
+;; don't belong there — they live in the bottom state blocks.  Explicit
+;; SCHEDULED/DEADLINE dates still show: you asked for that day.
+(defun ja/task-has-project-ancestor ()
+  "Non-nil if the entry at point is a sub-task under a :project: headline."
+  (save-excursion
+    (catch 'found
+      (while (org-up-heading-safe)
+        (when (member "project" (org-get-tags))
+          (throw 'found t)))
+      nil)))
+
 (defun ja/skip-tasks-in-agenda ()
-  "Skip non-project TODO entries in the calendar timeline."
+  "Skip task entries that don't belong in the calendar timeline.
+Project sub-tasks stay hidden (the project's [n/m] cookie carries
+them).  Standalone tasks appear on their SCHEDULED/DEADLINE day, or
+— once started, any state beyond TODO — on their UPDATED-stamp day.
+TODO-state tasks never enter the calendar via UPDATED; they live in
+the bottom state blocks."
   (when (and (org-entry-get (point) "TODO")
              (not (member "project" (org-get-tags)))
              (not (or (org-entry-get (point) "SCHEDULED")
-                      (org-entry-get (point) "DEADLINE"))))
+                      (org-entry-get (point) "DEADLINE")))
+             (or (ja/task-has-project-ancestor)                 ; sub-task → hidden
+                 (equal (org-entry-get (point) "TODO") "TODO")  ; not started → bottom only
+                 (not (ja/org-body-updated))))                  ; no date → hidden
     (save-excursion (org-end-of-subtree t) (point))))
 
 (defun ja/project-block (matcher header)
