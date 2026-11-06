@@ -88,3 +88,8 @@ end, { desc = "Neogit (Root Dir)" })
 map("n", "<leader>gG", function()
 	require("neogit").open({ cwd = vim.uv.cwd() })
 end, { desc = "Neogit (cwd)" })
+
+-- Org
+wk.add({
+	{ "<leader>o", group = "org", icon = { icon = "", color = "green" } },
+})
