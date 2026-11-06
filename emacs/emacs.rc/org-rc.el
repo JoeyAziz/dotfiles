@@ -25,7 +25,7 @@
 ;; TODO -> IN-PROGRESS -> WAITING / QA / NOT-ON-PROD -> DONE / CANCELLED
 ;; Projects use the SAME states; a project is just a headline tagged :project:.
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w@/!)" "QA(q)" "NOT-ON-PROD(n)"
+      '((sequence "TODO(t!)" "IN-PROGRESS(i!)" "WAITING(w@/!)" "QA(q!)" "NOT-ON-PROD(n!)"
                   "|" "DONE(d!)" "CANCELLED(c!)")))
 
 (setq org-log-done 'time)                   ; CLOSED stamp when marked DONE
@@ -53,12 +53,22 @@
   (format-time-string "UPDATED: <%Y-%m-%d %a %H:%M>"))
 
 (defun ja/org-refresh-stamp ()
-  "Insert or refresh the active UPDATED stamp on the headline at point."
+  "Refresh the active UPDATED stamp on the entry at point.
+The stamp may sit anywhere in the entry body — a LOGBOOK drawer
+opened by state changes lands between the property drawer and the
+body, and `org-end-of-meta-data' skips only the planning line and
+properties — so search the whole entry.  Replace the first stamp
+with the current time and delete any duplicates."
   (org-back-to-heading t)
-  (org-end-of-meta-data)        ; past property drawer / planning line
-  (if (looking-at "UPDATED: +<[^>\n]*>")
+  (let ((end (save-excursion (outline-next-heading) (point-marker))))
+    (if (not (re-search-forward "^UPDATED: +<[^>\n]*>" end t))
+        (progn                          ; no stamp yet — add one
+          (org-end-of-meta-data)        ; past property drawer / planning line
+          (insert (ja/org-updated-stamp) "\n"))
       (replace-match (ja/org-updated-stamp) t t)
-    (insert (ja/org-updated-stamp) "\n")))
+      ;; drop duplicate stamps further down in the same entry
+      (while (re-search-forward "^UPDATED: +<[^>\n]*>[ \t]*\n?" end t)
+        (replace-match "" t t)))))
 
 (defun ja/org-touch-entry ()
   "Refresh the UPDATED stamp on the entry at point and on its project."
