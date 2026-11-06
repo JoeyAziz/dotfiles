@@ -18,9 +18,6 @@ return {
         mysql           = { "sql_formatter" },
       })
 
-      -- Go: goimports first (organises imports), then gofmt
-      opts.formatters_by_ft.go = { "goimports", "gofmt" }
-
       -- SQL: match telda migrations style (mysql, 4-space, upper keywords)
       opts.formatters = vim.tbl_deep_extend("force", opts.formatters or {}, {
         sql_formatter = {
@@ -39,8 +36,6 @@ return {
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         "prettier",
-        "goimports",
-        "sql-formatter",
       })
     end,
   },

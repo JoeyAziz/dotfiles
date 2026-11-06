@@ -5,20 +5,24 @@ return {
 		opts = function(_, opts)
 			opts.ensure_installed = opts.ensure_installed or {}
 			vim.list_extend(opts.ensure_installed, {
-				-- TypeScript / React
-				"typescript-language-server",
-				"eslint-lsp",
-				-- TailwindCSS
-				"tailwindcss-language-server",
 				-- Go (gopls installed manually via `go install` to avoid Mason version drift)
 				-- "golangci-lint",
-				-- JSON / YAML / SQL
+				-- JSON / YAML
 				"json-lsp",
 				"yaml-language-server",
-				"sqls",
 				-- Lua
 				"lua-language-server",
 			})
+
+			-- Never auto-install
+			local skip = {
+				["shfmt"] = true,
+				["markdownlint-cli2"] = true,
+				["markdown-toc"] = true,
+			}
+			opts.ensure_installed = vim.tbl_filter(function(name)
+				return not skip[name]
+			end, opts.ensure_installed)
 		end,
 	},
 
@@ -55,31 +59,11 @@ return {
 						},
 					},
 				},
-				-- TailwindCSS: extend file type support to include .tsx
-				tailwindcss = {
-					filetypes = {
-						"html",
-						"css",
-						"scss",
-						"javascript",
-						"javascriptreact",
-						"typescript",
-						"typescriptreact",
-					},
-				},
-				-- ts_ls: ensure TSX/JSX are covered
-				ts_ls = {
-					filetypes = {
-						"typescript",
-						"typescriptreact",
-						"typescript.tsx",
-						"javascript",
-						"javascriptreact",
-					},
-					-- Bump tsserver's V8 heap; default ~4GB OOMs on the telda-fe monorepo
-					-- (SIGABRT from node::OOMErrorHandler in DiagnosticReports).
-					init_options = {
-						maxTsServerMemory = 8192,
+				vtsls = {
+					settings = {
+						typescript = {
+							tsserver = { maxTsServerMemory = 8192 },
+						},
 					},
 				},
 				-- YAML: enable schema store for auto-detected schemas (k8s, GitHub Actions, etc.)
@@ -91,10 +75,7 @@ return {
 						},
 					},
 				},
-				-- SQL: basic language server
-				sqls = {},
-				-- Protobuf: buf LSP (uses `buf lsp serve`, installed via brew)
-				buf_ls = {},
+				marksman = { enabled = false },
 			},
 		},
 	},
