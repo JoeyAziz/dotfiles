@@ -21,8 +21,6 @@ require("lazy").setup({
 
     -- Language extras
     { import = "lazyvim.plugins.extras.lang.typescript" }, -- TypeScript + React/TSX
-    { import = "lazyvim.plugins.extras.lang.tailwind" },   -- TailwindCSS
-    { import = "lazyvim.plugins.extras.lang.go" },         -- Golang
     { import = "lazyvim.plugins.extras.formatting.prettier" }, -- Prettier formatter
 
     -- Custom plugins (Bazel, overrides, etc.)

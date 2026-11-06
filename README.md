@@ -4,7 +4,7 @@ My personal config files.
 
 ## Contents
 
-- `nvim/` — [LazyVim](https://www.lazyvim.org/) configuration
+- `nvim/` — [LazyVim](https://www.lazyvim.org/) configuration (needs `brew install fd tree-sitter-cli`)
 - `emacs/` — Emacs configuration
 - `tmux/tmux.conf` — tmux configuration
 - `ghostty/config` — Ghostty terminal configuration

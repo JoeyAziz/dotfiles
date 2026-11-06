@@ -80,3 +80,16 @@ map("n", "<leader>oF", function()
 	vim.fn.jobstart({ "open", dir }, { detach = true })
 	vim.notify("Opened in Finder: " .. dir, vim.log.levels.INFO)
 end, { desc = "Open Buffer Dir in Finder" })
+
+-- Neogit
+map("n", "<leader>gg", function()
+	require("neogit").open({ cwd = LazyVim.root.git() })
+end, { desc = "Neogit (Root Dir)" })
+map("n", "<leader>gG", function()
+	require("neogit").open({ cwd = vim.uv.cwd() })
+end, { desc = "Neogit (cwd)" })
+
+-- Org
+wk.add({
+	{ "<leader>o", group = "org", icon = { icon = "", color = "green" } },
+})
